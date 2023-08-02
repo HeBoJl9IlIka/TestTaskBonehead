@@ -7,6 +7,11 @@ namespace Bonehead.Model
     {
         private Cell[] _cells;
 
+        public Inventory(Cell[] cells)
+        {
+            _cells = cells;
+        }
+
         public event Action AddedItem;
 
         public bool HasItem(Config.TypeItem typeItem)
@@ -23,14 +28,14 @@ namespace Bonehead.Model
             AddedItem?.Invoke();
         }
 
-        public int GetItemsStats(Config.ItemStats itemStats)
+        public int GetItemsStats(Stat stat)
         {
             int amount = 0;
 
             foreach (var cell in _cells)
             {
                 if (cell.IsEmpty == false)
-                    amount += cell.GetStats(itemStats);
+                    amount += cell.GetStatValue(stat);
             }
 
             return amount;

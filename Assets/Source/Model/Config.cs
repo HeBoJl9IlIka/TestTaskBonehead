@@ -1,3 +1,5 @@
+using static UnityEditor.Progress;
+
 namespace Bonehead.Model
 {
     public class Config
@@ -15,5 +17,9 @@ namespace Bonehead.Model
             Defense,
             Health
         }
+
+        public const int MinStat = 1;
+        public const int MaxStat = 15;
+        public const int MaxAmountCreatedItems = 3;
     }
 }
