@@ -1,6 +1,5 @@
 using Bonehead.Model;
 using System;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,12 +9,14 @@ public class LevelRoot : MonoBehaviour
 {
     [SerializeField] private Button _activationButton;
     [SerializeField] private PlayerStatsPresenter _playerStatsPresenter;
+    [SerializeField] private WalletPresenter _walletPresenter;
 
     private CellsFactory _cellsFactory;
     private ItemsFactory _itemsFactory;
     private PresentersFactory _presentersFactory;
     private Inventory _inventory;
     private ItemSelector _itemSelector;
+    private Wallet _wallet;
     private ItemsIconsPresenter _itemsIconsPresenter;
     private ItemSelectorPresenter _itemSelectorPresenter;
 
@@ -29,7 +30,9 @@ public class LevelRoot : MonoBehaviour
         _itemsFactory = new ItemsFactory();
         _inventory = new Inventory(_cellsFactory.CreateCells(_itemsIconsPresenter));
         _itemSelector = new ItemSelector(_inventory);
+        _wallet = new Wallet();
 
+        _walletPresenter.Init(_wallet);
         _itemSelectorPresenter = _presentersFactory.CreateItemSelector(this, _itemSelector, _itemsIconsPresenter);
     }
 
@@ -62,7 +65,7 @@ public class LevelRoot : MonoBehaviour
 
     public void DropItem(Item item)
     {
-        Debug.Log(item.GetAllStatsValue());
+        _wallet.AddMoney(item.GetAllStatsValue());
     }
 
     private void OnClickActivationButton()
