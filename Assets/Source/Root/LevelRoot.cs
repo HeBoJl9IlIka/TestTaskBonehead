@@ -1,4 +1,6 @@
 using Bonehead.Model;
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +9,7 @@ using UnityEngine.UI;
 public class LevelRoot : MonoBehaviour
 {
     [SerializeField] private Button _activationButton;
+    [SerializeField] private PlayerStatsPresenter _playerStatsPresenter;
 
     private CellsFactory _cellsFactory;
     private ItemsFactory _itemsFactory;
@@ -37,11 +40,13 @@ public class LevelRoot : MonoBehaviour
     private void OnEnable()
     {
         _activationButton.onClick.AddListener(OnClickActivationButton);
+        _inventory.AddedItem += OnAddedItem;
     }
 
     private void OnDisable()
     {
         _activationButton.onClick.RemoveListener(OnClickActivationButton);
+        _inventory.AddedItem -= OnAddedItem;
     }
 
     public void AddItem(Item item)
@@ -64,5 +69,13 @@ public class LevelRoot : MonoBehaviour
     {
         Item item = _itemsFactory.CreateItem();
         _itemSelector.ShowSelection(item);
+    }
+
+    private void OnAddedItem()
+    {
+        Array array = Enum.GetValues(typeof(Config.ItemStats));
+
+        for (int i = 0; i < array.Length; i++)
+            _playerStatsPresenter.ShowStats((Config.ItemStats)i, _inventory.GetItemsStats((Config.ItemStats)i));
     }
 }

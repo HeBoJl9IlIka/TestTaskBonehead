@@ -1,8 +1,6 @@
-using static UnityEditor.Progress;
-
 namespace Bonehead.Model
 {
-    public class Config
+    public static class Config
     {
         public enum TypeItem
         {

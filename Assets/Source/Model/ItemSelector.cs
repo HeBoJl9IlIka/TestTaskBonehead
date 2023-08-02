@@ -13,8 +13,6 @@ namespace Bonehead.Model
         }
 
         public event Action<Item, Item> Showed;
-        public event Action<Item> Equipped;
-        public event Action<Item> Dropped;
 
         public void ShowSelection(Item item)
         {
