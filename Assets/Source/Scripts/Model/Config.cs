@@ -18,7 +18,7 @@ namespace Bonehead.Model
 
         public const int MinStat = 1;
         public const int MaxStat = 15;
-        public const int MaxAmountCreatedItems = 3;
+        public const int MaxAmountCreatedItems = 2;
         public const int MaxCountMoney = 45;
         public const float MinRandomMoneyPosition = -10f;
         public const float MaxRandomMoneyPosition = 10f;

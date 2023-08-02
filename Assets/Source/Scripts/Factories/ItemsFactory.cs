@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Bonehead.Model
 {
@@ -35,11 +34,12 @@ namespace Bonehead.Model
             Array array = Enum.GetValues(typeof(Config.TypeItem));
             Config.TypeItem typeItem = (Config.TypeItem)_random.Next(array.Length);
 
-
             if (_amountCreatedItems >= Config.MaxAmountCreatedItems)
             {
                 while (typeItem == _lastItemType)
+                {
                     typeItem = (Config.TypeItem)_random.Next(array.Length);
+                }
             }
 
             _currentItemType = typeItem;
