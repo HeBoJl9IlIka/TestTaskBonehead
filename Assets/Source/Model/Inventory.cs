@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bonehead.Model
 {
     public class Inventory
     {
-        private Cell[] _cells;
+        private readonly Cell[] _cells;
+
+        public IReadOnlyCollection<Cell> Cells => _cells;
 
         public Inventory(Cell[] cells)
         {
@@ -14,10 +17,11 @@ namespace Bonehead.Model
 
         public event Action AddedItem;
 
-        public bool HasItem(Config.TypeItem typeItem)
+        public bool TryGetItem(Config.TypeItem typeItem, out Item item)
         {
             Cell cell = _cells.FirstOrDefault(cell => cell.TypeItem == typeItem);
 
+            item = cell.Item;
             return cell.IsEmpty == false;
         }
 
@@ -28,7 +32,7 @@ namespace Bonehead.Model
             AddedItem?.Invoke();
         }
 
-        public int GetItemsStats(Stat stat)
+        public int GetItemsStats(Config.ItemStats stat)
         {
             int amount = 0;
 

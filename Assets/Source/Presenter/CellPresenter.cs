@@ -1,19 +1,12 @@
-using AYellowpaper.SerializedCollections;
 using Bonehead.Model;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 public class CellPresenter : MonoBehaviour
 {
-    private const string NameKey = "Type Item";
-    private const string NameValue = "Sprite";
-
-    [SerializedDictionary(NameKey, NameValue)]
-    [SerializeField] private SerializedDictionary<Config.TypeItem, Sprite> _sprites;
-
     private Cell _model;
+    private ItemsIconsPresenter _itemsIconsPresenter;
     private Image _image;
 
     private void Awake()
@@ -31,17 +24,15 @@ public class CellPresenter : MonoBehaviour
         _model.Changed -= OnChanged;
     }
 
-    public void Init(Cell model)
+    public void Init(Cell model, ItemsIconsPresenter itemsIconsPresenter)
     {
         _model = model;
+        _itemsIconsPresenter = itemsIconsPresenter;
         enabled = true;
     }
 
     private void OnChanged(Item item)
     {
-        if (_sprites.TryGetValue(item.TypeItem, out Sprite sprite) == false)
-            throw new ArgumentNullException(nameof(item.TypeItem));
-
-        _image.sprite = sprite;
+        _image.sprite = _itemsIconsPresenter.GetIcon(item.TypeItem);
     }
 }

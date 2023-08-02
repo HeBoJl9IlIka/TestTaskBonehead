@@ -25,7 +25,7 @@ namespace Bonehead.Model
             Changed?.Invoke(Item);
         }
 
-        public int GetStatValue(Stat itemStat)
+        public int GetStatValue(Config.ItemStats itemStat)
         {
             return Item.GetStatValue(itemStat);
         }

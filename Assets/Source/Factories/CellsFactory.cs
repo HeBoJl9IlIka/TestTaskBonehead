@@ -11,14 +11,14 @@ public class CellsFactory : MonoBehaviour
     [SerializedDictionary(NameKey, NameValue)]
     [SerializeField] private SerializedDictionary<Config.TypeItem, CellPresenter> _cells;
 
-    public Cell[] CreateCells()
+    public Cell[] CreateCells(ItemsIconsPresenter itemsIconsPresenter)
     {
         List<Cell> cells = new List<Cell>();
 
         foreach (var cellPresenter in _cells)
         {
             Cell cellModel = new Cell(cellPresenter.Key);
-            cellPresenter.Value.Init(cellModel);
+            cellPresenter.Value.Init(cellModel, itemsIconsPresenter);
             cells.Add(cellModel);
         }
 

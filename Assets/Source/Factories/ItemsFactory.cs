@@ -47,6 +47,8 @@ namespace Bonehead.Model
 
         public void GenerateItemStat()
         {
+            _stats.Clear();
+
             int attackValue = _random.Next(Config.MinStat, Config.MaxStat);
             int defenseValue = _random.Next(Config.MinStat, Config.MaxStat);
             int healthValue = _random.Next(Config.MinStat, Config.MaxStat);
